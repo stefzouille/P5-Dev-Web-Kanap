@@ -33,27 +33,27 @@ exports.getOneProduct = (req, res, next) => {
   )
 };
 
-/**
- *
- * Expects request to contain:
- * contact: {
- *   firstName: string,
- *   lastName: string,
- *   address: string,
- *   city: string,
- *   email: string
- * }
- * products: [string] <-- array of product _id
- *
- */
+// /**
+//  *
+//  * Expects request to contain:
+//  * contact: {
+//  *   firstName: string,
+//  *   lastName: string,
+//  *   address: string,
+//  *   city: string,
+//  *   email: string
+//  * }
+//  * products: [string] <-- array of product _id
+//  *
+//  */
 exports.orderProducts = (req, res, next) => {
   if (!req.body.contact ||
-      !req.body.contact.firstName ||
-      !req.body.contact.lastName ||
-      !req.body.contact.address ||
-      !req.body.contact.city ||
-      !req.body.contact.email ||
-      !req.body.products) {
+    !req.body.contact.firstName ||
+    !req.body.contact.lastName ||
+    !req.body.contact.address ||
+    !req.body.contact.city ||
+    !req.body.contact.email ||
+    !req.body.products) {
     return res.status(400).send(new Error('Bad request!'));
   }
   let queries = [];
