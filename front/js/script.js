@@ -1,17 +1,18 @@
 // // 1 - afficher les produits sur la page d accueil
 
 const items = document.getElementById('items');
+const Url = 'http://localhost:3000/api/products';
 
 let api = fetch('http://localhost:3000/api/products')
   .then((response) => {
     return response.json();
   })
   .then((data) => {
-    console.log(data[0].name);
+    console.log(data);
     return data;
   });
-console.log(api);
-console.log();
+console.log("c est juste la" + api);
+
 
 // let data = [];
 // for (const elem of data) {
