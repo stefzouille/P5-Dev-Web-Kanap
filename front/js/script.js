@@ -1,19 +1,6 @@
 // // 1 - afficher les produits sur la page d accueil
 
-
-
-
-// const promiseGetProduct = new Promise((resolve, reject) => {
-//   if (PRODUCT !== 'undefine') {
-//     resolve(PRODUCT);
-//   } else {
-//     reject('Accés aux produits impossible !');
-//   }
-// })
-
 const url = 'http://localhost:3000/api/products';
-
-document.querySelector("#nom-de l id de la page html")
 
 // recuperer les données de l api
 fetch(url)
@@ -29,7 +16,7 @@ fetch(url)
       // affiche sur la page html avec l id de la balise div
       document.querySelector('#items').innerHTML = affichage;
     })
-  ).catch(err => console.log("Erreur : " + err));
+  ).catch(error => console.log("Erreur : " + error));
 
 
 
