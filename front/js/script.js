@@ -6,8 +6,9 @@ const url = 'http://localhost:3000/api/products';
 fetch(url)
   .then(response => response.json()
     .then(data => {
-      console.log(data);
-      let affichage = '<ol>';
+
+      let affichage = '<ul>';
+
       for (let product of data) {
         //recup des paires clé valeurs de l api
         affichage += `<li> nom : ${product.name}  - description : ${product.description}</li>`;
@@ -15,9 +16,10 @@ fetch(url)
       affichage += '</ul>';
       // affiche sur la page html avec l id de la balise div
       document.querySelector('#items').innerHTML = affichage;
-    })
-  ).catch(error => console.log("Erreur : " + error));
+      console.log(affichage);
 
+    })
+  ).catch(error => alert("Erreur : " + error));
 
 
 
