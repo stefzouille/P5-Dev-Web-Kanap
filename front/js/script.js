@@ -3,25 +3,33 @@
 const url = 'http://localhost:3000/api/products';
 
 // recuperer les données de l api
-fetch(url)
-  .then(response => response.json()
-    .then(data => {
+function items() {
+  fetch(url)
+    .then(response => response.json()
+      .then(data => {
+        console.log('data:', data);
+        let affichage = '<ul>';
 
-      let affichage = '<ul>';
+        for (let product of data) {
+          //recup des paires clé valeurs de l api
+          affichage += `<li> nom : ${product.name} </li>`;
+        }
+        affichage += '</ul>';
+        console.log(affichage);
+        // affiche sur la page html avec l id de la balise div
+        document
+          // .getElementById("items")
+          .getElementsByTagName('h3')[0]
+          .innerHTML = affichage;
+      })
+    ).catch(error => alert("Erreur : " + error));
+}
 
-      for (let product of data) {
-        //recup des paires clé valeurs de l api
-        affichage += `<li> nom : ${product.name}  - description : ${product.description}</li>`;
-      }
-      affichage += '</ul>';
-      // affiche sur la page html avec l id de la balise div
-      document.querySelector('#items').innerHTML = affichage;
-      console.log(affichage);
+items();
 
-    })
-  ).catch(error => alert("Erreur : " + error));
-
-
+// document
+//   .getElementById("items")
+//   .addEventListener("change", items());
 
 
 // class canape {
