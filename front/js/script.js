@@ -8,41 +8,26 @@ function items() {
     .then(response => response.json()
       .then(data => {
         console.log('data:', data);
-        let affichage = '<ul>';
+
+        var baliseItems = document.getElementById('items');
 
         for (let product of data) {
-          //recup des paires clé valeurs de l api
-          affichage += `<li> nom : ${product.name} </li>`;
+          //objet product creer les el html et mettre les info dedans
+          //create el appenchild et set attribute
+
+          var objet = document.createElement('article');
+
+          // creer create element puis setattribut puis text content puis appendchild
+
+
+
         }
-        affichage += '</ul>';
-        console.log(affichage);
-        // affiche sur la page html avec l id de la balise div
-        document
-          // .getElementById("items")
-          .getElementsByTagName('h3')[0]
-          .innerHTML = affichage;
       })
     ).catch(error => alert("Erreur : " + error));
 }
 
 items();
 
-// document
-//   .getElementById("items")
-//   .addEventListener("change", items());
-
-
-// class canape {
-//   constructor(colors, _id, name, price, imageUrl, description, altTxt) {
-//     this.colors = colors;
-//     this.id = _id;
-//     this.name = name;
-//     this.price = price;
-//     this.imageUrl = imageUrl;
-//     this.description = description;
-//     this.altTxt = altTxt;
-//   }
-// }
 
 
 
