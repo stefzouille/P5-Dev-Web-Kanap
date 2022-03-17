@@ -19,7 +19,31 @@ function items() {
 
           // creer create element puis setattribut puis text content puis appendchild
 
+          //créer element a
+          var baliseA = document.createElement('a')
+          //créer attribut href de l element a et lui passe le parametre product du tableau
+          baliseA.setAttribute('href', './product.html?id=' + product._id);
+          //  récupère le contenu de tous les éléments (de objet)
+          baliseA.textContent = product._id;
+          //place/créer objet en tant qu'enfant de la baliseA
+          baliseA.appendChild(objet);
 
+          var baliseImg = document.createElement('img');
+          baliseImg.setAttribute('src', product.imageUrl);
+          baliseImg.setAttribute('alt', product.altTxt);
+          objet.appendChild(baliseImg);
+
+          var baliseH3 = document.createElement('h3');
+          baliseH3.setAttribute('class', 'productName');
+          baliseH3.textContent = product.name;
+          objet.appendChild(baliseH3);
+
+          var baliseP = document.createElement('p');
+          baliseP.setAttribute('class', 'productDescription');
+          baliseP.textContent = product.description;
+          objet.appendChild((baliseP));
+
+          baliseItems.appendChild(objet);
 
         }
       })
