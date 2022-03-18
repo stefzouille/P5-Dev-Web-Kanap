@@ -27,6 +27,7 @@ function items() {
           baliseA.textContent = product._id;
           //place/créer objet en tant qu'enfant de la baliseA
           baliseA.appendChild(objet);
+          console.log(baliseA);
 
           var baliseImg = document.createElement('img');
           baliseImg.setAttribute('src', product.imageUrl);
@@ -35,6 +36,7 @@ function items() {
 
           var baliseH3 = document.createElement('h3');
           baliseH3.setAttribute('class', 'productName');
+          //  récupère le contenu de tous les éléments (de objet)
           baliseH3.textContent = product.name;
           objet.appendChild(baliseH3);
 
@@ -43,7 +45,10 @@ function items() {
           baliseP.textContent = product.description;
           objet.appendChild((baliseP));
 
-          baliseItems.appendChild(objet);
+          baliseItems.appendChild(baliseA);
+          console.log(baliseItems);
+
+          // baliseItems.seachParams = product._id;
 
         }
       })
@@ -51,6 +56,8 @@ function items() {
 }
 
 items();
+// var prod = url.searchParams.get('id');
+
 
 
 
