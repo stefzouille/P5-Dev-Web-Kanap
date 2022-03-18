@@ -24,7 +24,7 @@ function items() {
           //créer attribut href de l element a et lui passe le parametre product du tableau
           baliseA.setAttribute('href', './product.html?id=' + product._id);
           //  récupère le contenu de tous les éléments (de objet)
-          baliseA.textContent = product._id;
+          // baliseA.textContent = product._id;
           //place/créer objet en tant qu'enfant de la baliseA
           baliseA.appendChild(objet);
           console.log(baliseA);
@@ -46,7 +46,7 @@ function items() {
           objet.appendChild((baliseP));
 
           baliseItems.appendChild(baliseA);
-          console.log(baliseItems);
+          // console.log(baliseItems);
 
           // baliseItems.seachParams = product._id;
 
@@ -56,7 +56,7 @@ function items() {
 }
 
 items();
-// var prod = url.searchParams.get('id');
+
 
 
 
