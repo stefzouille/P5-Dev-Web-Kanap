@@ -23,53 +23,66 @@ function produit() {
         var objetProduits = document.querySelector('.item');
 
         var product = data
-        // var objet = document.createElement('article');
 
         console.log(product);
 
+        // image et text alt du produit
         var images = document.createElement('img');
         images.setAttribute('src', product.imageUrl);
         images.setAttribute('alt', product.altTxt);
         var contenairImg = document.querySelector('.item__img');
         contenairImg.appendChild(images);
 
+        // nom du produit
         var title = document.createElement('h1');
-        // title.setAttribute('id', product.name);
         title.textContent = product.name;
         var contenairTitle = document.querySelector('#title');
         contenairTitle.appendChild(title);
 
+        //indication du prix
         var price = document.createElement('span');
         price.textContent = product.price;
         var contenairPrice = document.querySelector('#price');
         contenairPrice.appendChild(price);
 
-
+        // description du produit
         var description = document.createElement('p');
         description.textContent = product.description;
         var contenairDescription = document.querySelector('#description');
         contenairDescription.appendChild(description);
 
-        // selection de la couleur
-        var color = document.createElement('option');
-        color.textContent = product.color;
-        var contenairColor = document.querySelector('#color');
-        contenairColor.appendChild(color);
+        // tableau des couleurs foreach
+        var colors = document.createElement('ul');
+        product.colors.forEach(function (color) {
+          var li = document.createElement('li');
+          li.textContent = color;
+          colors.appendChild(li);
+          var contenairColor = document.querySelector('#colors');
+          contenairColor.appendChild(colors);
+          // objetProduits.appendChild(contenairColor);
+          console.log(contenairColor);
+        });
 
-        // contenairColor.appendChild(value);
-        console.log(contenairColor);
+        colors.addEventListener('click', function (event) {
+          var target = event.target;
+          var color = target.textContent;
+          console.log(color);
+          var contenairColor = document.querySelector('#colors');
+          contenairColor.textContent = color;
+        });
+        // function addEvent(event) {
+        //   var color = event.target.textContent;
+        //   console.log(color);
+        //   var color = document.createElement('span');
+        //   color.textContent = event.target.textContent;
+        //   var contenairColor = document.querySelector('#color');
+        //   contenairColor.appendChild(color);
+        // }
 
 
 
-
-
-
-        // console.log(title);
-        // console.log(objetProduits);
-
-
+        console.log(colors);
       })
-    ).catch(error => alert("Erreur : " + error));
+    ).catch(error => console.log("erreur : " + error));
 }
-
 produit();
