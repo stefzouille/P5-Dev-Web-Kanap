@@ -51,37 +51,23 @@ function produit() {
         var contenairDescription = document.querySelector('#description');
         contenairDescription.appendChild(description);
 
-        // tableau des couleurs foreach
-        var colors = document.createElement('ul');
+
+        var select = document.getElementById('colors');
+        console.log(product.colors);
+
         product.colors.forEach(function (color) {
-          var li = document.createElement('li');
-          li.textContent = color;
-          colors.appendChild(li);
-          var contenairColor = document.querySelector('#colors');
-          contenairColor.appendChild(colors);
-          // objetProduits.appendChild(contenairColor);
-          console.log(contenairColor);
-        });
 
-        colors.addEventListener('click', function (event) {
-          var target = event.target;
-          var color = target.textContent;
+          var tagOption = document.createElement('option');
+
+          //injecter la fonction dans le select
+          tagOption.textContent = `${color}`;
+          tagOption.value = `${color}`;
+
+          select.appendChild(tagOption);
+
+          console.log(tagOption);
           console.log(color);
-          var contenairColor = document.querySelector('#colors');
-          contenairColor.textContent = color;
         });
-        // function addEvent(event) {
-        //   var color = event.target.textContent;
-        //   console.log(color);
-        //   var color = document.createElement('span');
-        //   color.textContent = event.target.textContent;
-        //   var contenairColor = document.querySelector('#color');
-        //   contenairColor.appendChild(color);
-        // }
-
-
-
-        console.log(colors);
       })
     ).catch(error => console.log("erreur : " + error));
 }
