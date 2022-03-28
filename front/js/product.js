@@ -18,14 +18,9 @@ function produit() {
   fetch(url + productId)
     .then(response => response.json()
       .then(data => {
-        // console.log('data:', data);
-
-        var objetProduits = document.querySelector('.item');
 
         var product = data
-
         console.log(product);
-
         // image et text alt du produit
         var images = document.createElement('img');
         images.setAttribute('src', product.imageUrl);
@@ -51,9 +46,8 @@ function produit() {
         var contenairDescription = document.querySelector('#description');
         contenairDescription.appendChild(description);
 
-
+        // option choix de couleur
         var select = document.getElementById('colors');
-        console.log(product.colors);
 
         product.colors.forEach(function (color) {
 
@@ -65,13 +59,44 @@ function produit() {
 
           select.appendChild(selectOption);
 
-          console.log(selectOption);
-          console.log(color);
-
-
-
+          // console.log(color);
         });
+        addBasket(product);
       })
     ).catch(error => console.log("erreur : " + error));
 }
 produit();
+
+// ajouter le produit dans le local storage
+// et appel de la fct addBasket dans la fct produit
+const addBasket = () => {
+
+  var button = document.querySelector('.item');
+  console.log(button);
+  button.addEventListener('click', function () {
+    var productArray = JSON.parse(localStorage.getItem('product'));
+    var select = document.getElementById('colors');
+    var color = select.options[select.selectedIndex].value;
+
+    // console.log(select.value);
+    // console.log(color);
+    // console.log(productArray);
+
+    const fusionProduitColor = Object.assign(productArray, { color: color });
+
+    // verifier si il y a deja un produit dans le local storage
+    if (productArray === null) {
+      // si il est null alors c est unt tableau vide
+      productArray = [];
+      productArray.push({
+        id: productId,
+        color: color
+      });
+      console.log(productArray);
+      localStorage.setItem('product', JSON.stringify(productArray));
+    }
+
+  });
+
+
+};
