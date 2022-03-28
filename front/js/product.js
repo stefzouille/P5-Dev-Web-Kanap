@@ -57,16 +57,19 @@ function produit() {
 
         product.colors.forEach(function (color) {
 
-          var tagOption = document.createElement('option');
+          var selectOption = document.createElement('option');
 
           //injecter la fonction dans le select
-          tagOption.textContent = `${color}`;
-          tagOption.value = `${color}`;
+          selectOption.textContent = `${color}`;
+          selectOption.value = `${color}`;
 
-          select.appendChild(tagOption);
+          select.appendChild(selectOption);
 
-          console.log(tagOption);
+          console.log(selectOption);
           console.log(color);
+
+
+
         });
       })
     ).catch(error => console.log("erreur : " + error));
