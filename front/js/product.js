@@ -50,16 +50,11 @@ function produit() {
         var select = document.getElementById('colors');
 
         product.colors.forEach(function (color) {
-
           var selectOption = document.createElement('option');
-
           //injecter la fonction dans le select
           selectOption.textContent = `${color}`;
           selectOption.value = `${color}`;
-
           select.appendChild(selectOption);
-
-          // console.log(color);
         });
         addBasket(product);
       })
@@ -71,32 +66,49 @@ produit();
 // et appel de la fct addBasket dans la fct produit
 const addBasket = () => {
 
-  var button = document.querySelector('.item');
+  var button = document.querySelector('.item__content__addButton');
   console.log(button);
   button.addEventListener('click', function () {
     var productArray = JSON.parse(localStorage.getItem('product'));
     var select = document.getElementById('colors');
     var color = select.options[select.selectedIndex].value;
+    var numberQuantity = document.getElementById('quantity').value;
 
-    // console.log(select.value);
-    // console.log(color);
-    // console.log(productArray);
-
-    const fusionProduitColor = Object.assign(productArray, { color: color });
-
-    // verifier si il y a deja un produit dans le local storage
-    if (productArray === null) {
-      // si il est null alors c est unt tableau vide
-      productArray = [];
-      productArray.push({
-        id: productId,
-        color: color
-      });
-      console.log(productArray);
-      localStorage.setItem('product', JSON.stringify(productArray));
+    console.log(color);
+    console.log(numberQuantity);
+    // controle des champs utilisateur color et quantité
+    if (color == '' && numberQuantity == 0) {
+      return alert("veuillez saisir une quantité et une couleur")
+    } else if (color == '') {
+      return alert("veuillez saisir une couleur")
+    } else if (numberQuantity == 0) {
+      return alert("veuillez saisir une quantité")
+    } else {
+      return selectValue(color, numberQuantity);
     }
 
+    // verifier si il y a deja un produit dans le local storage
+    function selectValue() {
+      if (productArray === null) {
+        // si il est null alors c est unt tableau vide
+        productArray = [];
+      }
+      var sameCanap = false
+      productArray.forEach(canape => {
+        if (canape.id == productId && canape.color == color) {
+          sameCanap = true
+          canape.quantity = parseInt(canape.quantity) + parseInt(numberQuantity)
+        }
+      });
+      //controle si canape existe deja  dans le local storage
+      if (sameCanap == false) {
+        productArray.push({
+          id: productId,
+          color: color,
+          quantity: numberQuantity,
+        });
+      }
+      localStorage.setItem('product', JSON.stringify(productArray));
+    }
   });
-
-
 };
