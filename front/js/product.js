@@ -67,15 +67,14 @@ produit();
 const addBasket = () => {
 
   var button = document.querySelector('.item__content__addButton');
-  console.log(button);
   button.addEventListener('click', function () {
     var productArray = JSON.parse(localStorage.getItem('product'));
     var select = document.getElementById('colors');
     var color = select.options[select.selectedIndex].value;
     var numberQuantity = document.getElementById('quantity').value;
 
-    console.log(color);
-    console.log(numberQuantity);
+    // console.log(color);
+    // console.log(numberQuantity);
     // controle des champs utilisateur color et quantité
     if (color == '' && numberQuantity == 0) {
       return alert("veuillez saisir une quantité et une couleur")
