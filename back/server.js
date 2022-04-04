@@ -42,5 +42,5 @@ server.on('listening', () => {
   console.log('Listening on ' + bind);
 });
 
-console.log(" weshhhh salut ma gueule serveur api op !!");
+console.log("salut, serveur api lancé !!");
 server.listen(port);
