@@ -7,13 +7,12 @@ var addProduit = JSON.parse(localStorage.getItem('product'));
 
 // verifier si il y a bien un produit dans le local storage
 const basketDisplay = () => {
-  console.log("salut");
   if (addProduit) {
     addProduit;
     console.log(addProduit);
-    for (const element of addProduit) {
-      console.log(element);
-    }
+    // for (const element of addProduit) {
+    //   console.log(element);
+    // }
     // afficher le local storage dans le html
     addProduit.forEach(function (product) {
       var productId = product.id;
@@ -22,6 +21,8 @@ const basketDisplay = () => {
       var productPrice = product.price;
 
       var productPanier = document.getElementById("cart__items")
+
+
 
 
       var panierId = document.createElement("div");
