@@ -21,6 +21,7 @@ function produit() {
 
         var product = data
         console.log(product);
+
         // image et text alt du produit
         var images = document.createElement('img');
         images.setAttribute('src', product.imageUrl);
