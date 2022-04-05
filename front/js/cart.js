@@ -1,15 +1,10 @@
 const url = 'http://localhost:3000/api/products/';
 
-// var searchParams = new URLSearchParams(window.location.search);
-// // aller rechercher la valeur de l attribut id ds l url avec la methode get
-// var productId = searchParams.get('id');
-// console.log(productId);
-
 // recuperer le panier en tableau
 var panier = JSON.parse(localStorage.getItem('product'));
 // console.log(panier);
 
-// foreach pour parcourir le tableau et faire un fetch a chaque element du tableau
+// foreach pour parcourir le tableau storage et faire un fetch de api a chaque element du tableau
 panier.forEach(function (product, index) {
   product['index'] = index;
   let _id = [];
@@ -20,9 +15,9 @@ panier.forEach(function (product, index) {
   _id.push(product.id);
   console.log(_id);
 
-  // comparer l id de l api avec l id du localstorage
-
   // console.log(product);
+
+  // comparer l id de l api avec l id du localstorage
 
   var productId = product.id;
   var productColor = product.color;
@@ -78,30 +73,54 @@ panier.forEach(function (product, index) {
         item.appendChild(prodPrice);
 
         //afficher image ds le dom
-        var prodImg = document.createElement('cart__item__img');
+        var prodImg = document.createElement('img');
         prodImg.setAttribute('src', product.imageUrl);
-        prodImg.setAttribute('alt', product.altTxt);
-        prodImg.textContent = product.altTxt;
-        item.appendChild(prodImg);
 
+        // image s affiche mais en grand ------------------------------------
+        // item.appendChild(prodImg);
+
+        //img altTxt
+        var prodAlt = document.createElement('cart__item__img');
+        prodAlt.textContent = product.altTxt;
+        item.appendChild(prodAlt);
 
         var prodColor = document.createElement('cart__item__color');
         prodColor.textContent = productColor;
         item.appendChild(prodColor);
 
 
-        // creation titre h3
-        // var prodId = document.createElement('h3');
-        // prodId.textContent = productId;
-        // item.appendChild(prodId);
-
-        // var prodColor = document.createElement('p');
-        // prodColor.textContent = productColor;
-        // item.appendChild(prodColor);
-
         var prodQuantity = document.createElement('p');
         prodQuantity.textContent = productQuantity;
         item.appendChild(prodQuantity);
+
+        // --------------------------------------------afficher le total------------------------------------------------------
+        // faire le total
+        var total = document.getElementById('totalQuantity');
+
+        // console.log(total);
+        // calcul du total
+        // var totalPrice = 0;
+        // for (var i = 0; i < price.length; i++) {
+        //   totalPrice += price[i] * productQuantity;
+        // }
+
+        totalPrice = [];
+        for (var i = 0; i < totalPrice.length; i++) {
+          total.textContent = totalPrice[i];
+        }
+        totalPrice.push(product.price * productQuantity);
+
+        totalPrice = totalPrice.reduce(function (a, b) {
+          return a + b;
+        });
+        console.log(totalPrice);
+
+
+        var totalPrice = document.createElement('p');
+        totalPrice.textContent = product.price;
+        total.appendChild(totalPrice);
+
+        // console.log(totalPrice);
 
       })
     ).catch(error => console.log("erreur : " + error));
