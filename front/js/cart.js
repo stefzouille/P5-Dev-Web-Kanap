@@ -37,24 +37,24 @@ panier.forEach(function (product, index) {
 
         // product c est l api
         var product = data;
-        console.log(product);
+        // console.log(product);
         // --------------------------------------------recuperer les donnees de l api------------------------------------------------------
 
         //recup le name de l api et push ds mon array vide declaré dans mon panier.foreach
         name.push(product.name);
-        console.log(product.name);
+        // console.log(product.name);
 
         //recup le prix de l api et push ds mon array vide declaré dans mon panier.foreach
         price.push(product.price);
-        console.log(product.price);
+        // console.log(product.price);
 
         //recup l image de l api et push ds mon array vide declaré dans mon panier.foreach
         imageUrl.push(product.imageUrl);
-        console.log(product.imageUrl);
+        // console.log(product.imageUrl);
 
         //recup l alt de l api et push ds mon array vide declaré dans mon panier.foreach
         altTxt.push(product.altTxt);
-        console.log(product.altTxt);
+        // console.log(product.altTxt);
 
         // --------------------------------------------afficher sur le dom------------------------------------------------------
 
@@ -84,7 +84,7 @@ panier.forEach(function (product, index) {
         prodImg.textContent = product.altTxt;
         item.appendChild(prodImg);
 
-        // afficher l image ds le dom
+
         var prodColor = document.createElement('cart__item__color');
         prodColor.textContent = productColor;
         item.appendChild(prodColor);
