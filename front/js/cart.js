@@ -93,6 +93,31 @@ panier.forEach(function (product, index) {
         prodQuantity.textContent = productQuantity;
         item.appendChild(prodQuantity);
 
+        // contenaire bouton sup et ajouté
+
+        var boutonContenair = document.createElement('div');
+        boutonContenair.setAttribute('class', 'cart__item__content__settings');
+        item.appendChild(boutonContenair);
+
+
+        // test bouton quantité
+        var prodQuantityBtn = document.createElement('button');
+        prodQuantityBtn.textContent = 'ajouter';
+        boutonContenair.appendChild(prodQuantityBtn);
+
+
+        // bouton supprimé
+        var prodDelete = document.createElement('button');
+        prodDelete.textContent = 'supprimer';
+        boutonContenair.appendChild(prodDelete);
+
+
+
+
+
+
+
+
         // --------------------------------------------afficher le total------------------------------------------------------
         // faire le total
         var total = document.getElementById('totalQuantity');
