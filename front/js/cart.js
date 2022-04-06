@@ -12,6 +12,11 @@ panier.forEach(function (product, index) {
   let price = [];
   let imageUrl = [];
   let altTxt = [];
+  let color = [];
+  let quantity = [];
+  let total = [];
+
+
   _id.push(product.id);
   console.log(_id);
 
@@ -51,6 +56,8 @@ panier.forEach(function (product, index) {
         altTxt.push(product.altTxt);
         // console.log(product.altTxt);
 
+        // quantity.push(product.quantity);
+
         // --------------------------------------------afficher sur le dom------------------------------------------------------
 
         // prod recup info du dom
@@ -58,98 +65,108 @@ panier.forEach(function (product, index) {
         // console.log(prod);
 
         // creation d un div cart__item
-        var item = document.createElement('cart__item');
+        var item = document.createElement('div');
         item.classList.add('cart__item');
         prod.appendChild(item);
 
+        // creation d un article cart__item
+        var article = document.createElement('article');
+        article.classList.add('cart__item');
+        item.appendChild(article);
+
+        // creation d un div cart__item__img
+        var Img = document.createElement('div');
+        Img.classList.add('cart__item__img');
+        item.appendChild(Img);
+        var itemImg = document.createElement('img');
+        itemImg.classList.add('cart__item__img');
+        itemImg.setAttribute('src', product.imageUrl);
+        itemImg.setAttribute('alt', product.altTxt);
+        article.appendChild(itemImg);
+
+
         // afficher le nom ds le dom
-        var prodName = document.createElement('cart__item__name');
-        prodName.textContent = product.name;
-        item.appendChild(prodName);
-
-        // afficher le prix ds le dom
-        var prodPrice = document.createElement('cart__item__price');
-        prodPrice.textContent = product.price;
-        item.appendChild(prodPrice);
-
-        //afficher image ds le dom
-        var prodImg = document.createElement('img');
-        prodImg.setAttribute('src', product.imageUrl);
-
-        // image s affiche mais en grand ------------------------------------
-        // item.appendChild(prodImg);
-
-        //img altTxt
-        var prodAlt = document.createElement('cart__item__img');
-        prodAlt.textContent = product.altTxt;
-        item.appendChild(prodAlt);
-
-        var prodColor = document.createElement('cart__item__color');
+        var prodName = document.createElement('div');
+        prodName.classList.add('cart__item__content');
+        var prodNameDescrip = document.createElement('div');
+        prodNameDescrip.classList.add('cart__item__content__description');
+        var prodNameH2 = document.createElement('h2');
+        prodNameH2.textContent = product.name;
+        var prodColor = document.createElement('p');
         prodColor.textContent = productColor;
-        item.appendChild(prodColor);
+        var prodPrice = document.createElement('p');
+        prodPrice.textContent = product.price;
+        console.log(product);
 
 
-        var prodQuantity = document.createElement('p');
-        prodQuantity.textContent = productQuantity;
-        item.appendChild(prodQuantity);
+        // ajouter les donnees ds le dom
+        prodNameDescrip.appendChild(prodNameH2);
+        prodNameDescrip.appendChild(prodColor);
+        prodNameDescrip.appendChild(prodPrice);
+        prodName.appendChild(prodNameDescrip);
+        article.appendChild(prodName);
 
-        // contenaire bouton sup et ajouté
+        // creation d un div cart__item__content__settings
+        var settings = document.createElement('div');
+        settings.classList.add('cart__item__content__settings');
 
-        var boutonContenair = document.createElement('div');
-        boutonContenair.setAttribute('class', 'cart__item__content__settings');
-        item.appendChild(boutonContenair);
+        var settingQuantity = document.createElement('p');
+        settingQuantity.textContent = "Qté :";
+
+        var settingQuantityInput = document.createElement('input');
+        settingQuantityInput.setAttribute('type', 'number');
+        settingQuantityInput.setAttribute('value', productQuantity);
+        settingQuantityInput.setAttribute('class', 'itemQuantity');
+        settingQuantityInput.setAttribute('min', '1');
+        settingQuantityInput.setAttribute('max', '100');
+
+        settingQuantity.appendChild(settingQuantityInput);
+        settings.appendChild(settingQuantity);
+        article.appendChild(settings);
+
+        // creation d un div cart__item__content__settings__delete
+        var deleteItem = document.createElement('div');
+        deleteItem.classList.add('cart__item__content__settings__delete');
+        var deleteItemP = document.createElement('P');
+        deleteItemP.textContent = "Supprimer";
+        deleteItem.appendChild(deleteItemP);
+        article.appendChild(deleteItem);
+
+        article.appendChild(settings);
 
 
-        // test bouton quantité
-        var prodQuantityBtn = document.createElement('button');
-        prodQuantityBtn.textContent = 'ajouter';
-        boutonContenair.appendChild(prodQuantityBtn);
 
+        // changer quantite
+        settingQuantityInput.addEventListener('change', function (e) {
 
-        // bouton supprimé
-        var prodDelete = document.createElement('button');
-        prodDelete.textContent = 'supprimer';
-        boutonContenair.appendChild(prodDelete);
-
-
-
-
-
-
-
-
-        // --------------------------------------------afficher le total------------------------------------------------------
-        // faire le total
-        var total = document.getElementById('totalQuantity');
-
-        // console.log(total);
-        // calcul du total
-        // var totalPrice = 0;
-        // for (var i = 0; i < price.length; i++) {
-        //   totalPrice += price[i] * productQuantity;
-        // }
-
-        totalPrice = [];
-        for (var i = 0; i < totalPrice.length; i++) {
-          total.textContent = totalPrice[i];
-        }
-        totalPrice.push(product.price * productQuantity);
-
-        totalPrice = totalPrice.reduce(function (a, b) {
-          return a + b;
+          // itemQuantity.addEventListener('change', function (e) {
+          var itemQuantity = e.target;
+          var itemQuantityValue = itemQuantity.value;
+          changeQuantityLocalStorage(itemQuantityValue, _id, color);
         });
-        console.log(totalPrice);
 
-
-        var totalPrice = document.createElement('p');
-        totalPrice.textContent = product.price;
-        total.appendChild(totalPrice);
-
-        // console.log(totalPrice);
 
       })
     ).catch(error => console.log("erreur : " + error));
 }
 )
+// reste les fonctions ajout supprimer avec le local et le post ensuite
 
+function changeQuantityLocalStorage(quantity, _id, color) {
+  const panier = JSON.parse(localStorage.getItem('product'));
+  panier.forEach(canap => {
+    if (canap.id == _id && canap.color == color && canap.quantity == quantity) {
+      canap.quantity = parseInt(quantity);
 
+    }
+  });
+  localStorage.setItem('product', JSON.stringify(panier));
+  console.log(panier);
+  //   // sameCanap = true
+  //   canap.quantity = parseInt(canap.quantity) + parseInt(numberQuantity)
+
+  // }
+
+  // });
+
+}
