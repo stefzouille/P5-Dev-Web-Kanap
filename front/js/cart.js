@@ -18,7 +18,7 @@ panier.forEach(function (product, index) {
 
 
   _id.push(product.id);
-  console.log(_id);
+  // console.log(_id);
 
   // console.log(product);
 
@@ -96,7 +96,7 @@ panier.forEach(function (product, index) {
         prodColor.textContent = productColor;
         var prodPrice = document.createElement('p');
         prodPrice.textContent = product.price;
-        console.log(product);
+        // console.log(product);
 
 
         // ajouter les donnees ds le dom
@@ -127,46 +127,40 @@ panier.forEach(function (product, index) {
         // creation d un div cart__item__content__settings__delete
         var deleteItem = document.createElement('div');
         deleteItem.classList.add('cart__item__content__settings__delete');
-        var deleteItemP = document.createElement('P');
+        var deleteItemP = document.createElement('p');
         deleteItemP.textContent = "Supprimer";
         deleteItem.appendChild(deleteItemP);
         article.appendChild(deleteItem);
 
         article.appendChild(settings);
 
-
-
-        // changer quantite
-        settingQuantityInput.addEventListener('change', function (e) {
-
-          // itemQuantity.addEventListener('change', function (e) {
-          var itemQuantity = e.target;
-          var itemQuantityValue = itemQuantity.value;
-          changeQuantityLocalStorage(itemQuantityValue, _id, color);
-        });
-
+        console.log(productQuantity);
 
       })
     ).catch(error => console.log("erreur : " + error));
+
 }
 )
-// reste les fonctions ajout supprimer avec le local et le post ensuite
+var supprimer = document.getElementsByClassName('deleteItem');
+var numberQuantity = JSON.parse(localStorage.getItem('product'));
+console.log(numberQuantity);
+// console.log(supprimer);
+// console.log(panier);
+// fonction addeventlistener pour supprimer un produit au panier
+numberQuantity.addEventListener('click', function (e) {
+  if (e.target.classList.contains('cart__item__content__settings__delete')) {
+    deleteItem();
 
-function changeQuantityLocalStorage(quantity, _id, color) {
-  const panier = JSON.parse(localStorage.getItem('product'));
-  panier.forEach(canap => {
-    if (canap.id == _id && canap.color == color && canap.quantity == quantity) {
-      canap.quantity = parseInt(quantity);
+  }
 
-    }
-  });
-  localStorage.setItem('product', JSON.stringify(panier));
-  console.log(panier);
-  //   // sameCanap = true
-  //   canap.quantity = parseInt(canap.quantity) + parseInt(numberQuantity)
+  // ....................ca supprime mais au refresh page ..................
+  // supprimer un produit du panier
+  function deleteItem(index) {
+    console.log(index);
+    panier.splice(index, 1);
+    localStorage.setItem('product', JSON.stringify(panier));
+    location.reload();
+  }
 
-  // }
+})
 
-  // });
-
-}
