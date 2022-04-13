@@ -7,29 +7,17 @@ var panier = JSON.parse(localStorage.getItem('product'));
 // foreach pour parcourir le tableau storage et faire un fetch de api a chaque element du tableau
 panier.forEach(function (product, index) {
   product['index'] = index;
-  let _id = [];
   let name = [];
   let price = [];
   let imageUrl = [];
   let altTxt = [];
-  let color = [];
-  let quantity = [];
-  let total = [];
-
-
-  _id.push(product.id);
-  // console.log(_id);
-
-  // console.log(product);
 
   // comparer l id de l api avec l id du localstorage
 
   var productId = product.id;
   var productColor = product.color;
   var productQuantity = product.quantity;
-  // console.log(productId);
-  // console.log(productColor);
-  // console.log(productQuantity);
+
 
   fetch(url + productId)
     .then(response => response.json()
@@ -120,6 +108,7 @@ panier.forEach(function (product, index) {
         settingQuantityInput.setAttribute('min', '1');
         settingQuantityInput.setAttribute('max', '100');
 
+
         settingQuantity.appendChild(settingQuantityInput);
         settings.appendChild(settingQuantity);
         article.appendChild(settings);
@@ -134,33 +123,85 @@ panier.forEach(function (product, index) {
 
         article.appendChild(settings);
 
-        console.log(productQuantity);
+        // console.log(productQuantity);
+
+        settingQuantityInput.addEventListener('change', function () {
+          var newQuantity = this.value;
+          changeQuantityLocalStorage(newQuantity, product._id, productColor);
+        })
+
+        deleteItemP.addEventListener('click', function () {
+          // console.log(product._id);
+          // console.log(productColor);
+          deleteItemStorage(product._id, productColor);
+        })
+
+        // --------------------------------------------afficher le total------------------------------------------------------
+
+        // recup le total ds le dom
+        var total = document.getElementById('totalQuantity');
+        console.log(total);
+
+        // afficher le total ds le dom
+        total.textContent = calculQuantity();
+
 
       })
     ).catch(error => console.log("erreur : " + error));
+  // console.log(settingQuantityInput);
+  // console.log(productQuantity);
+});
 
+// ............................................................
+// changer quantité panier du localstorage
+
+// reste les fonctions ajout supprimer avec le local et le post ensuite
+
+function changeQuantityLocalStorage(quantity, _id, color) {
+  const panier = JSON.parse(localStorage.getItem('product'));
+  panier.forEach(canap => {
+    console.log(canap);
+    console.log(_id);
+    console.log(color);
+    console.log(quantity);
+
+    if (canap.id == _id && canap.color == color) {
+      canap.quantity = parseInt(quantity);
+    }
+  });
+  localStorage.setItem('product', JSON.stringify(panier));
 }
-)
-var supprimer = document.getElementsByClassName('deleteItem');
-var numberQuantity = JSON.parse(localStorage.getItem('product'));
-console.log(numberQuantity);
-// console.log(supprimer);
-// console.log(panier);
-// fonction addeventlistener pour supprimer un produit au panier
-numberQuantity.addEventListener('click', function (e) {
-  if (e.target.classList.contains('cart__item__content__settings__delete')) {
-    deleteItem();
 
-  }
+function deleteItemStorage(id, color) {
+  const panier = JSON.parse(localStorage.getItem('product'));
+  panier.forEach(canap => {
+    // console.log(canap);
+    // console.log(id);
+    // console.log(color);
 
-  // ....................ca supprime mais au refresh page ..................
-  // supprimer un produit du panier
-  function deleteItem(index) {
-    console.log(index);
-    panier.splice(index, 1);
-    localStorage.setItem('product', JSON.stringify(panier));
-    location.reload();
-  }
+    if (canap.id == id && canap.color == color) {
+      console.log("coucou");
+      panier.splice(panier.indexOf(canap), 1);
+    }
+  });
+  localStorage.setItem('product', JSON.stringify(panier));
+}
 
-})
+// 2 fct calcul quantité total et prix total puis afficher au bonne endroits
+// appel de fct a 3 endroits au refresh au change et au supprimer
+
+// calculer quantité total
+function calculQuantity() {
+  var quantity = 0;
+  var panier = JSON.parse(localStorage.getItem('product'));
+  panier.forEach(canap => {
+    // additionner les quantité
+    quantity++;
+    console.log(quantity);
+    console.log(canap.quantity);
+  });
+  return quantity;
+}
+
+
 
