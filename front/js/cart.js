@@ -17,6 +17,8 @@ panier.forEach(function (product, index) {
   var productId = product.id;
   var productColor = product.color;
   var productQuantity = product.quantity;
+  var productPrice = product.price;
+
 
 
   fetch(url + productId)
@@ -145,6 +147,16 @@ panier.forEach(function (product, index) {
         // afficher le total ds le dom
         total.textContent = calculQuantity();
 
+        // --------------------------------------------afficher le prix total------------------------------------------------------
+
+        // // recup le total ds le dom
+        var totalPrice = document.getElementById('totalPrice');
+        console.log(totalPrice);
+
+        // afficher le total ds le dom
+        totalPrice.textContent = calculPrice(product.price);
+
+
 
       })
     ).catch(error => console.log("erreur : " + error));
@@ -170,14 +182,12 @@ function changeQuantityLocalStorage(quantity, _id, color) {
     }
   });
   localStorage.setItem('product', JSON.stringify(panier));
+  location.reload();
 }
 
 function deleteItemStorage(id, color) {
   const panier = JSON.parse(localStorage.getItem('product'));
   panier.forEach(canap => {
-    // console.log(canap);
-    // console.log(id);
-    // console.log(color);
 
     if (canap.id == id && canap.color == color) {
       console.log("coucou");
@@ -185,6 +195,7 @@ function deleteItemStorage(id, color) {
     }
   });
   localStorage.setItem('product', JSON.stringify(panier));
+  location.reload();
 }
 
 // 2 fct calcul quantité total et prix total puis afficher au bonne endroits
@@ -195,13 +206,28 @@ function calculQuantity() {
   var quantity = 0;
   var panier = JSON.parse(localStorage.getItem('product'));
   panier.forEach(canap => {
-    // additionner les quantité
-    quantity++;
+    // additionner les quantitées
+    // parseint pour convertir en entier et addittionner au lieu de concatener !
+    quantity += parseInt(canap.quantity);
     console.log(quantity);
     console.log(canap.quantity);
   });
   return quantity;
 }
+
+// calculer prix total
+function calculPrice(price) {
+  var priceTotal = 0;
+  var panier = JSON.parse(localStorage.getItem('product'));
+  panier.forEach(canap => {
+    // additionner les prix
+    priceTotal += parseInt(canap.quantity) * parseInt(price);
+    console.log(priceTotal);
+    console.log(canap.quantity);
+  });
+  return priceTotal;
+}
+
 
 
 
