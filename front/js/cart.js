@@ -224,6 +224,124 @@ function calculPrice(price) {
 
 // ............................................................ formulaire de contact
 
+// prenom et nom
+var firstName = document.getElementById('firstName');
+var lastName = document.getElementById('lastName');
+console.log(firstName.value);
+
+// adress
+var adress = document.getElementById('address');
+
+// city
+var city = document.getElementById('city');
+
+// email
+var email = document.getElementById('email');
+
+// commander
+var commander = document.getElementById('order');
+
+
+// controler prenom pas un nombre et inferieur a 20 characteres
+firstName.addEventListener('input', function () {
+  if (firstName.value.length > 20 || firstName.value.length < 2 || isNaN(firstName.value)) {
+    this.value = this.value.substring(0, 20);
+  }
+  if (isNaN(this.value)) {
+    this.style.border = "2px solid green";
+  } else {
+    this.style.border = "3px solid red";
+  }
+});
+
+lastName.addEventListener('input', function () {
+  if (lastName.value.length > 20 || lastName.value.length < 2 || isNaN(lastName.value)) {
+    this.value = this.value.substring(0, 20);
+  }
+  if (isNaN(this.value)) {
+    this.style.border = "2px solid green";
+  } else {
+    this.style.border = "3px solid red";
+  }
+});
+
+// controller si c est bien une adresse 
+adress.addEventListener('input', function () {
+  if (this.value.length > 50) {
+    this.value = this.value.substring(0, 20);
+  }
+  if (this.value) {
+    this.style.border = "2px solid green";
+
+  } else {
+    this.style.border = "3px solid red";
+  }
+});
+
+// controller si c est bien une ville
+city.addEventListener('input', function () {
+  if (this.value.length > 20) {
+    this.value = this.value.substring(0, 20);
+  }
+  if (isNaN(this.value)) {
+    this.style.border = "2px solid green";
+  } else {
+    this.style.border = "3px solid red";
+  }
+});
+
+// controller si c est bien un email
+email.addEventListener('input', function () {
+  if (this.value.length > 50 || this.value.length < 5 || this.value.indexOf('@') == -1 || this.value.indexOf('.') == -1) {
+    this.value = this.value.substring(0, 50);
+  }
+  if (isNaN(this.value)) {
+    this.style.border = "2px solid green";
+  } else {
+    this.style.border = "3px solid red";
+  }
+});
+
+// methode post pour envoyer le formulaire de contact au serveur
+commander.addEventListener('click', function (e) {
+  e.preventDefault();
+  var data = {
+    firstName: firstName.value,
+    lastName: lastName.value,
+    adress: adress.value,
+    city: city.value,
+    email: email.value
+  }
+  console.log(data);
+  fetch('http://localhost:3000/api/products/order', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then(response => response.json())
+    .then(response => {
+      console.log(response);
+      if (response.message) {
+        alert(response.message);
+      } else {
+        alert("votre commande a bien été prise en compte");
+        location.reload();
+      }
+    })
+    .catch(error => console.log("erreur : " + error));
+}
+);
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -94,7 +94,7 @@
                 <!-- 84,00 -->
               </span> €</p>
           </div>
-          <!-- ajout d une ancre pour continuer les achat redirection page home -->
+          <!-- ajout d une ancre pour continuer les achats redirection page home -->
           <div>
             <a href="index.html" style="text-decoration:none; color: white;">
               <i class="fas fa-chevron-left"></i>
@@ -105,29 +105,30 @@
             <form method="get" class="cart__order__form">
               <div class="cart__order__form__question">
                 <label for="firstName">Prénom: </label>
-                <input type="text" name="firstName" id="firstName" required>
+                <input type="text" name="firstName" id="firstName" required="required"
+                  placeholder="Entrez votre Prénom">
                 <p id="firstNameErrorMsg">
                   <!-- ci est un message d'erreur -->
                 </p>
               </div>
               <div class="cart__order__form__question">
                 <label for="lastName">Nom: </label>
-                <input type="text" name="lastName" id="lastName" required>
+                <input type="text" name="lastName" id="lastName" required="required" placeholder="Entrez votre Nom">
                 <p id="lastNameErrorMsg"></p>
               </div>
               <div class="cart__order__form__question">
                 <label for="address">Adresse: </label>
-                <input type="text" name="address" id="address" required>
+                <input type="text" name="address" id="address" required="required" placeholder="Entrez votre Adresse">
                 <p id="addressErrorMsg"></p>
               </div>
               <div class="cart__order__form__question">
                 <label for="city">Ville: </label>
-                <input type="text" name="city" id="city" required>
+                <input type="text" name="city" id="city" required="required" placeholder="Entrez votre Ville">
                 <p id="cityErrorMsg"></p>
               </div>
               <div class="cart__order__form__question">
                 <label for="email">Email: </label>
-                <input type="email" name="email" id="email" required>
+                <input type="email" name="email" id="email" required="required" placeholder="Entrez votre mail">
                 <p id="emailErrorMsg"></p>
               </div>
               <div class="cart__order__form__submit">
