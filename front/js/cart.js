@@ -101,7 +101,7 @@ panier.forEach(function (product, index) {
         settings.classList.add('cart__item__content__settings');
 
         var settingQuantity = document.createElement('p');
-        settingQuantity.textContent = "Qté :";
+        settingQuantity.textContent = "Qté : ";
 
         var settingQuantityInput = document.createElement('input');
         settingQuantityInput.setAttribute('type', 'number');
@@ -142,22 +142,19 @@ panier.forEach(function (product, index) {
 
         // recup le total ds le dom
         var total = document.getElementById('totalQuantity');
-        console.log(total);
+        // console.log(total);
 
         // afficher le total ds le dom
         total.textContent = calculQuantity();
 
         // --------------------------------------------afficher le prix total------------------------------------------------------
 
-        // // recup le total ds le dom
+        // recup le total ds le dom
         var totalPrice = document.getElementById('totalPrice');
-        console.log(totalPrice);
+        // console.log(totalPrice);
 
         // afficher le total ds le dom
         totalPrice.textContent = calculPrice(product.price);
-
-
-
       })
     ).catch(error => console.log("erreur : " + error));
   // console.log(settingQuantityInput);
@@ -172,10 +169,6 @@ panier.forEach(function (product, index) {
 function changeQuantityLocalStorage(quantity, _id, color) {
   const panier = JSON.parse(localStorage.getItem('product'));
   panier.forEach(canap => {
-    console.log(canap);
-    console.log(_id);
-    console.log(color);
-    console.log(quantity);
 
     if (canap.id == _id && canap.color == color) {
       canap.quantity = parseInt(quantity);
@@ -209,8 +202,8 @@ function calculQuantity() {
     // additionner les quantitées
     // parseint pour convertir en entier et addittionner au lieu de concatener !
     quantity += parseInt(canap.quantity);
-    console.log(quantity);
-    console.log(canap.quantity);
+    // console.log(quantity);
+    // console.log(canap.quantity);
   });
   return quantity;
 }
@@ -222,11 +215,15 @@ function calculPrice(price) {
   panier.forEach(canap => {
     // additionner les prix
     priceTotal += parseInt(canap.quantity) * parseInt(price);
-    console.log(priceTotal);
-    console.log(canap.quantity);
+    // console.log(priceTotal);
+    // console.log(canap.quantity);
   });
   return priceTotal;
 }
+
+
+// ............................................................ formulaire de contact
+
 
 
 
