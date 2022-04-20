@@ -227,7 +227,6 @@ function calculPrice(price) {
 // prenom et nom
 var firstName = document.getElementById('firstName');
 var lastName = document.getElementById('lastName');
-console.log(firstName.value);
 
 // adress
 var adress = document.getElementById('address');
@@ -245,6 +244,7 @@ var commander = document.getElementById('order');
 // controler prenom pas un nombre et inferieur a 20 characteres
 firstName.addEventListener('input', function () {
   if (firstName.value.length > 20 || firstName.value.length < 2 || isNaN(firstName.value)) {
+    //|| firstName.value.length === [a-zA-Z]
     this.value = this.value.substring(0, 20);
   }
   if (isNaN(this.value)) {
@@ -252,7 +252,12 @@ firstName.addEventListener('input', function () {
   } else {
     this.style.border = "3px solid red";
   }
+  // if (firstName.value[a - zA - ZÀ - ÿ] == [0 - 9]) {
+  //   this.style.border = "3px solid red";
+  // }
 });
+
+
 
 lastName.addEventListener('input', function () {
   if (lastName.value.length > 20 || lastName.value.length < 2 || isNaN(lastName.value)) {
@@ -264,6 +269,8 @@ lastName.addEventListener('input', function () {
     this.style.border = "3px solid red";
   }
 });
+
+
 
 // controller si c est bien une adresse 
 adress.addEventListener('input', function () {
@@ -292,6 +299,10 @@ city.addEventListener('input', function () {
 
 // controller si c est bien un email
 email.addEventListener('input', function () {
+
+  var emailRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  console.log(emailRegExp.test(this.value));
+
   if (this.value.length > 50 || this.value.length < 5 || this.value.indexOf('@') == -1 || this.value.indexOf('.') == -1) {
     this.value = this.value.substring(0, 50);
   }
@@ -304,34 +315,65 @@ email.addEventListener('input', function () {
 
 // methode post pour envoyer le formulaire de contact au serveur
 commander.addEventListener('click', function (e) {
+  var products = [];
+  var panier = JSON.parse(localStorage.getItem('product'));
+  panier.forEach(canap => {
+    products.push(canap.id);
+  });
+  console.log(products);
+
   e.preventDefault();
-  var data = {
+  var contact = {
     firstName: firstName.value,
     lastName: lastName.value,
     adress: adress.value,
     city: city.value,
     email: email.value
   }
-  console.log(data);
-  fetch('http://localhost:3000/api/products/order', {
+  var data = {
+    contact, products
+  }
+
+  // console.log(contact);
+  // fetch api et methode post pour envoyer le formulaire de contact au serveur et recuperer numero de commande
+  fetch('http://localhost:3000/api/products/order/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
-  }).then(response => response.json())
-    .then(response => {
-      console.log(response);
-      if (response.message) {
-        alert(response.message);
-      } else {
-        alert("votre commande a bien été prise en compte");
-        location.reload();
-      }
-    })
-    .catch(error => console.log("erreur : " + error));
-}
-);
+  }).then(response => response.json()).then(data => {
+    console.log(data);
+    // afficher le numero de commande
+    var orderNumber = document.getElementById('order');
+    orderNumber.appendChild(document.createTextNode(data.orderNumber));
+    // afficher le message de confirmation
+    var message = document.getElementById('message');
+    message.appendChild(document.createTextNode('Votre commande a bien été prise en compte !'));
+  });
+});
+
+
+
+
+    // fetch('http://localhost:3000/api/products/order', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(data)
+    // }).then(response => response.json())
+    //   .then(response => {
+    //     console.log(response);
+    //     if (response.message) {
+    //       alert(response.message);
+    //     } else {
+    //       alert("votre commande a bien été prise en compte");
+    //       location.reload();
+    //     }
+//   })
+//     .catch (error => console.log("erreur : " + error));
+// });
 
 
 
