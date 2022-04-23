@@ -243,9 +243,9 @@ var commander = document.getElementById('order');
 
 // controler prenom pas un nombre et inferieur a 20 characteres
 firstName.addEventListener('input', function () {
-  // var firstnameRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  // var firstnameRegExp = 
-  console.log(firstnameRegExp.test(this.value));
+  var firstnameRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  var firstnameRegExp =
+    console.log(firstnameRegExp.test(this.value));
 
   if (firstName.value.length > 20 || firstName.value.length < 2 || isNaN(firstName.value)) {
     //|| firstName.value.length === [a-zA-Z]
@@ -352,8 +352,10 @@ commander.addEventListener('click', function (e) {
     var orderNumber = document.getElementById('order');
     orderNumber.appendChild(document.createTextNode(data.orderNumber));
     // afficher le message de confirmation
-    var message = document.getElementById('message');
-    message.appendChild(document.createTextNode('Votre commande a bien été prise en compte !'));
+
+    console.log(data.orderId);
+    return alert(`Votre commande a bien été prise en compte ! numero : ${data.orderId}`);
+    // var message = document.getElementById('order');
   });
 });
 
