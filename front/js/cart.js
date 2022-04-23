@@ -243,6 +243,10 @@ var commander = document.getElementById('order');
 
 // controler prenom pas un nombre et inferieur a 20 characteres
 firstName.addEventListener('input', function () {
+  // var firstnameRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  // var firstnameRegExp = 
+  console.log(firstnameRegExp.test(this.value));
+
   if (firstName.value.length > 20 || firstName.value.length < 2 || isNaN(firstName.value)) {
     //|| firstName.value.length === [a-zA-Z]
     this.value = this.value.substring(0, 20);
@@ -326,7 +330,7 @@ commander.addEventListener('click', function (e) {
   var contact = {
     firstName: firstName.value,
     lastName: lastName.value,
-    adress: adress.value,
+    address: adress.value,
     city: city.value,
     email: email.value
   }
@@ -334,7 +338,7 @@ commander.addEventListener('click', function (e) {
     contact, products
   }
 
-  // console.log(contact);
+  console.log(contact);
   // fetch api et methode post pour envoyer le formulaire de contact au serveur et recuperer numero de commande
   fetch('http://localhost:3000/api/products/order/', {
     method: 'POST',
@@ -354,26 +358,6 @@ commander.addEventListener('click', function (e) {
 });
 
 
-
-
-    // fetch('http://localhost:3000/api/products/order', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(data)
-    // }).then(response => response.json())
-    //   .then(response => {
-    //     console.log(response);
-    //     if (response.message) {
-    //       alert(response.message);
-    //     } else {
-    //       alert("votre commande a bien été prise en compte");
-    //       location.reload();
-    //     }
-//   })
-//     .catch (error => console.log("erreur : " + error));
-// });
 
 
 
