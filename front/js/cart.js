@@ -397,16 +397,22 @@ commander.addEventListener('click', function (e) {
       },
       body: JSON.stringify(data)
     }).then(response => response.json()).then(data => {
-
+      console.log(data);
       // afficher le numero de commande
       var orderNumber = document.getElementById('order');
       orderNumber.appendChild(document.createTextNode(data.orderNumber));
       // afficher le message de confirmation
 
-
-      // renvoyer sur page confirmation
+      console.log(data.orderId);
+      // // renvoyer sur page confirmation
       window.location.href = "confirmation.html?orderId=" + data.orderId;
 
+
+
+      // return alert(`Votre commande a bien été prise en compte ! numero : ${data.orderId}`);
+      // var pageConfirmation = document.getElementsByClassName('informations');
+      // console.log(pageConfirmation);
+      // var message = document.getElementById('order');
     });
   }
   else {
