@@ -241,81 +241,127 @@ var email = document.getElementById('email');
 var commander = document.getElementById('order');
 
 
-// controler prenom pas un nombre et inferieur a 20 characteres
-firstName.addEventListener('input', function () {
-  var firstnameRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  var firstnameRegExp =
-    console.log(firstnameRegExp.test(this.value));
 
-  if (firstName.value.length > 20 || firstName.value.length < 2 || isNaN(firstName.value)) {
-    //|| firstName.value.length === [a-zA-Z]
-    this.value = this.value.substring(0, 20);
-  }
-  if (isNaN(this.value)) {
-    this.style.border = "2px solid green";
-  } else {
-    this.style.border = "3px solid red";
-  }
-  // if (firstName.value[a - zA - ZÀ - ÿ] == [0 - 9]) {
-  //   this.style.border = "3px solid red";
-  // }
+
+// controler prenom 
+
+firstName.addEventListener('change', function () {
+  validFirstName(this);
 });
 
+const validFirstName = (firstName) => {
+  // creation de regex expression reguliere prenom
+  var firstnameRegExp = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ -]+$/;
+  let firstNameErrorMsg = firstName.nextElementSibling;
+  // console.log(firstnameRegExp.test(firstName.value));
 
-
-lastName.addEventListener('input', function () {
-  if (lastName.value.length > 20 || lastName.value.length < 2 || isNaN(lastName.value)) {
-    this.value = this.value.substring(0, 20);
-  }
-  if (isNaN(this.value)) {
-    this.style.border = "2px solid green";
+  if (firstName.value.length < 2 || firstName.value.length > 20 || !firstnameRegExp.test(firstName.value)) {
+    firstNameErrorMsg.textContent = "Veuillez entrer un prenom valide !";
+    firstNameErrorMsg.style.color = "red";
+    firstName.style.border = "2px solid red";
   } else {
-    this.style.border = "3px solid red";
+    firstName.style.border = "2px solid green";
+    firstNameErrorMsg.style.color = "darkgreen";
+    firstNameErrorMsg.textContent = "Le prenom est valide !";
+    return true;
   }
+}
+//   console.log(firstNameErrorMsg);
+
+// controler le nom
+lastName.addEventListener('change', function () {
+  validLastName(this);
 });
 
+const validLastName = (lastName) => {
+  // creation de regex expression reguliere nom
+  var lastnameRegExp = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ -]+$/;
+  let lastNameErrorMsg = lastName.nextElementSibling;
+  // console.log(lastnameRegExp.test(lastName.value));
 
-
-// controller si c est bien une adresse 
-adress.addEventListener('input', function () {
-  if (this.value.length > 50) {
-    this.value = this.value.substring(0, 20);
-  }
-  if (this.value) {
-    this.style.border = "2px solid green";
-
+  if (lastName.value.length < 2 || lastName.value.length > 20 || !lastnameRegExp.test(lastName.value)) {
+    lastNameErrorMsg.textContent = "Veuillez entrer un nom valide !";
+    lastNameErrorMsg.style.color = "red";
+    lastName.style.border = "2px solid red";
   } else {
-    this.style.border = "3px solid red";
+    lastNameErrorMsg.style.color = "darkgreen";
+    lastNameErrorMsg.textContent = "Le nom est valide !";
+    lastName.style.border = "2px solid green";
+    return true;
   }
+}
+
+// controller une adresse 
+adress.addEventListener('change', function () {
+  validAdress(this);
 });
+
+const validAdress = (adress) => {
+  // creation de regex expression reguliere adresse
+  var adressRegExp = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ -]+$/;
+  let adressErrorMsg = adress.nextElementSibling;
+
+  if (adress.value.length < 2 || adress.value.length > 20 || !adressRegExp.test(adress.value)) {
+    adressErrorMsg.textContent = "Veuillez entrer une adresse valide";
+    adressErrorMsg.style.color = "red";
+    adress.style.border = "2px solid red";
+  } else {
+    adressErrorMsg.textContent = "Adresse valide !";
+    adressErrorMsg.style.color = "darkgreen";
+    adress.style.border = "2px solid green";
+    return true;
+  }
+}
+
 
 // controller si c est bien une ville
-city.addEventListener('input', function () {
-  if (this.value.length > 20) {
-    this.value = this.value.substring(0, 20);
-  }
-  if (isNaN(this.value)) {
-    this.style.border = "2px solid green";
-  } else {
-    this.style.border = "3px solid red";
-  }
+city.addEventListener('change', function () {
+  validCity(this);
 });
+
+
+const validCity = (city) => {
+  // creation de regex expression reguliere ville
+  var cityRegExp = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ -]+$/;
+  let cityErrorMsg = city.nextElementSibling;
+
+  if (city.value.length < 2 || city.value.length > 40 || !cityRegExp.test(city.value)) {
+    cityErrorMsg.textContent = "Veuillez entrer une ville valide";
+    cityErrorMsg.style.color = "red";
+    city.style.border = "2px solid red";
+  } else {
+    cityErrorMsg.textContent = "La ville est valide !";
+    cityErrorMsg.style.color = "darkgreen";
+    city.style.border = "2px solid green";
+    return true;
+  }
+}
+
+
 
 // controller si c est bien un email
-email.addEventListener('input', function () {
-
-  var emailRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  console.log(emailRegExp.test(this.value));
-
-  if (this.value.length > 50 || this.value.length < 5 || this.value.indexOf('@') == -1 || this.value.indexOf('.') == -1) {
-    this.value = this.value.substring(0, 50);
-  }
-  if (isNaN(this.value)) {
-    this.style.border = "2px solid green";
-  } else {
-    this.style.border = "3px solid red";
-  }
+email.addEventListener('change', function () {
+  validEmail(this);
 });
+
+
+const validEmail = (email) => {
+  // creation de regex expression reguliere email
+  var emailRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z-]+)*$/;
+  let emailErrorMsg = email.nextElementSibling;
+
+  if (email.value.length < 2 || email.value.length > 40 || !emailRegExp.test(email.value)) {
+    emailErrorMsg.textContent = "Veuillez entrer une adresse email valide";
+    emailErrorMsg.style.color = "red";
+    email.style.border = "2px solid red";
+  } else {
+    emailErrorMsg.textContent = "Adresse email valide !";
+    emailErrorMsg.style.color = "darkgreen";
+    email.style.border = "2px solid green";
+    return true;
+  }
+}
+
 
 // methode post pour envoyer le formulaire de contact au serveur
 commander.addEventListener('click', function (e) {
@@ -324,39 +370,48 @@ commander.addEventListener('click', function (e) {
   panier.forEach(canap => {
     products.push(canap.id);
   });
-  console.log(products);
+  // console.log(products);
 
   e.preventDefault();
-  var contact = {
-    firstName: firstName.value,
-    lastName: lastName.value,
-    address: adress.value,
-    city: city.value,
-    email: email.value
+
+  // passe le fetch dans le if de controle des champs formulaire a true
+  if (validFirstName(firstName) && validLastName(lastName) && validAdress(adress) && validCity(city) && validEmail(email)) {
+    console.log('formulaire valide');
+    var contact = {
+      firstName: firstName.value,
+      lastName: lastName.value,
+      address: adress.value,
+      city: city.value,
+      email: email.value
+    }
+    var data = {
+      contact, products
+    }
+
+    console.log(contact);
+    // fetch api et methode post pour envoyer le formulaire de contact au serveur et recuperer numero de commande
+    fetch('http://localhost:3000/api/products/order/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(response => response.json()).then(data => {
+      console.log(data);
+      // afficher le numero de commande
+      var orderNumber = document.getElementById('order');
+      orderNumber.appendChild(document.createTextNode(data.orderNumber));
+      // afficher le message de confirmation
+
+      console.log(data.orderId);
+      return alert(`Votre commande a bien été prise en compte ! numero : ${data.orderId}`);
+      // var message = document.getElementById('order');
+    });
   }
-  var data = {
-    contact, products
+  else {
+    return alert('Veuillez remplir correctement tous les champs du formulaire');
   }
 
-  console.log(contact);
-  // fetch api et methode post pour envoyer le formulaire de contact au serveur et recuperer numero de commande
-  fetch('http://localhost:3000/api/products/order/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }).then(response => response.json()).then(data => {
-    console.log(data);
-    // afficher le numero de commande
-    var orderNumber = document.getElementById('order');
-    orderNumber.appendChild(document.createTextNode(data.orderNumber));
-    // afficher le message de confirmation
-
-    console.log(data.orderId);
-    return alert(`Votre commande a bien été prise en compte ! numero : ${data.orderId}`);
-    // var message = document.getElementById('order');
-  });
 });
 
 
