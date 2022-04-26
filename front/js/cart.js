@@ -416,7 +416,7 @@ commander.addEventListener('click', function (e) {
     });
   }
   else {
-    return alert('Veuillez remplir correctement tous les champs du formulaire');
+    return alert('Veuillez corriger ou remplir les champs du formulaire');
   }
 
 });
