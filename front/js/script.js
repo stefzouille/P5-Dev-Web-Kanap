@@ -7,8 +7,6 @@ function items() {
   fetch(url)
     .then(response => response.json()
       .then(data => {
-        console.log('data:', data);
-
         var baliseItems = document.getElementById('items');
 
         for (let product of data) {
@@ -27,7 +25,6 @@ function items() {
           // baliseA.textContent = product._id;
           //place/créer objet en tant qu'enfant de la baliseA
           baliseA.appendChild(objet);
-          console.log(baliseA);
 
           var baliseImg = document.createElement('img');
           baliseImg.setAttribute('src', product.imageUrl);
@@ -46,15 +43,10 @@ function items() {
           objet.appendChild((baliseP));
 
           baliseItems.appendChild(baliseA);
-          // console.log(baliseItems);
-
-          // baliseItems.seachParams = product._id;
-
         }
       })
     ).catch(error => alert("Erreur : " + error));
 }
-
 items();
 
 

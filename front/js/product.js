@@ -13,14 +13,12 @@ if (searchParams.has('id')) {
   window.location.href = './index.html';
 }
 
-
 function produit() {
   fetch(url + productId)
     .then(response => response.json()
       .then(data => {
 
         var product = data
-        console.log(product);
 
         // image et text alt du produit
         var images = document.createElement('img');
@@ -74,9 +72,6 @@ const addBasket = () => {
     var color = select.options[select.selectedIndex].value;
     var numberQuantity = document.getElementById('quantity').value;
 
-    // console.log(color);
-    // console.log(numberQuantity);
-    // controle des champs utilisateur color et quantité
     if (color == '' && numberQuantity == 0) {
       return alert("veuillez saisir une quantité et une couleur")
     } else if (color == '') {
