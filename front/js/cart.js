@@ -2,7 +2,6 @@ const url = 'http://localhost:3000/api/products/';
 
 // recuperer le panier en tableau
 var panier = JSON.parse(localStorage.getItem('product'));
-// console.log(panier);
 
 // foreach pour parcourir le tableau storage et faire un fetch de api a chaque element du tableau
 panier.forEach(function (product, index) {
@@ -17,7 +16,7 @@ panier.forEach(function (product, index) {
   var productId = product.id;
   var productColor = product.color;
   var productQuantity = product.quantity;
-  var productPrice = product.price;
+  // var productPrice = product.price;
 
 
 
@@ -27,32 +26,25 @@ panier.forEach(function (product, index) {
 
         // product c est l api
         var product = data;
-        // console.log(product);
+
         // --------------------------------------------recuperer les donnees de l api------------------------------------------------------
 
         //recup le name de l api et push ds mon array vide declaré dans mon panier.foreach
         name.push(product.name);
-        // console.log(product.name);
 
         //recup le prix de l api et push ds mon array vide declaré dans mon panier.foreach
         price.push(product.price);
-        // console.log(product.price);
 
         //recup l image de l api et push ds mon array vide declaré dans mon panier.foreach
         imageUrl.push(product.imageUrl);
-        // console.log(product.imageUrl);
 
         //recup l alt de l api et push ds mon array vide declaré dans mon panier.foreach
         altTxt.push(product.altTxt);
-        // console.log(product.altTxt);
-
-        // quantity.push(product.quantity);
 
         // --------------------------------------------afficher sur le dom------------------------------------------------------
 
         // prod recup info du dom
         var prod = document.getElementById('cart__items');
-        // console.log(prod);
 
         // creation d un div cart__item
         var item = document.createElement('div');
@@ -86,7 +78,6 @@ panier.forEach(function (product, index) {
         prodColor.textContent = productColor;
         var prodPrice = document.createElement('p');
         prodPrice.textContent = product.price;
-        // console.log(product);
 
 
         // ajouter les donnees ds le dom
@@ -125,16 +116,12 @@ panier.forEach(function (product, index) {
 
         article.appendChild(settings);
 
-        // console.log(productQuantity);
-
         settingQuantityInput.addEventListener('change', function () {
           var newQuantity = this.value;
           changeQuantityLocalStorage(newQuantity, product._id, productColor);
         })
 
         deleteItemP.addEventListener('click', function () {
-          // console.log(product._id);
-          // console.log(productColor);
           deleteItemStorage(product._id, productColor);
         })
 
@@ -142,7 +129,6 @@ panier.forEach(function (product, index) {
 
         // recup le total ds le dom
         var total = document.getElementById('totalQuantity');
-        // console.log(total);
 
         // afficher le total ds le dom
         total.textContent = calculQuantity();
@@ -157,14 +143,10 @@ panier.forEach(function (product, index) {
         totalPrice.textContent = calculPrice(product.price);
       })
     ).catch(error => console.log("erreur : " + error));
-  // console.log(settingQuantityInput);
-  // console.log(productQuantity);
 });
 
 // ............................................................
 // changer quantité panier du localstorage
-
-// reste les fonctions ajout supprimer avec le local et le post ensuite
 
 function changeQuantityLocalStorage(quantity, _id, color) {
   const panier = JSON.parse(localStorage.getItem('product'));
@@ -191,10 +173,9 @@ function deleteItemStorage(id, color) {
   location.reload();
 }
 
-// 2 fct calcul quantité total et prix total puis afficher au bonne endroits
-// appel de fct a 3 endroits au refresh au change et au supprimer
 
-// calculer quantité total
+
+//--------------------------------- calculer quantité total --------------------------------------------------
 function calculQuantity() {
   var quantity = 0;
   var panier = JSON.parse(localStorage.getItem('product'));
@@ -202,8 +183,6 @@ function calculQuantity() {
     // additionner les quantitées
     // parseint pour convertir en entier et addittionner au lieu de concatener !
     quantity += parseInt(canap.quantity);
-    // console.log(quantity);
-    // console.log(canap.quantity);
   });
   return quantity;
 }
@@ -215,8 +194,6 @@ function calculPrice(price) {
   panier.forEach(canap => {
     // additionner les prix
     priceTotal += parseInt(canap.quantity) * parseInt(price);
-    // console.log(priceTotal);
-    // console.log(canap.quantity);
   });
   return priceTotal;
 }
@@ -244,7 +221,6 @@ var commander = document.getElementById('order');
 
 
 // controler prenom 
-
 firstName.addEventListener('change', function () {
   validFirstName(this);
 });
@@ -253,7 +229,6 @@ const validFirstName = (firstName) => {
   // creation de regex expression reguliere prenom
   var firstnameRegExp = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ -]+$/;
   let firstNameErrorMsg = firstName.nextElementSibling;
-  // console.log(firstnameRegExp.test(firstName.value));
 
   if (firstName.value.length < 2 || firstName.value.length > 20 || !firstnameRegExp.test(firstName.value)) {
     firstNameErrorMsg.textContent = "Veuillez entrer un prenom valide !";
@@ -266,7 +241,6 @@ const validFirstName = (firstName) => {
     return true;
   }
 }
-//   console.log(firstNameErrorMsg);
 
 // controler le nom
 lastName.addEventListener('change', function () {
@@ -277,7 +251,6 @@ const validLastName = (lastName) => {
   // creation de regex expression reguliere nom
   var lastnameRegExp = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ -]+$/;
   let lastNameErrorMsg = lastName.nextElementSibling;
-  // console.log(lastnameRegExp.test(lastName.value));
 
   if (lastName.value.length < 2 || lastName.value.length > 20 || !lastnameRegExp.test(lastName.value)) {
     lastNameErrorMsg.textContent = "Veuillez entrer un nom valide !";
@@ -313,12 +286,10 @@ const validAdress = (adress) => {
   }
 }
 
-
 // controller si c est bien une ville
 city.addEventListener('change', function () {
   validCity(this);
 });
-
 
 const validCity = (city) => {
   // creation de regex expression reguliere ville
@@ -337,13 +308,10 @@ const validCity = (city) => {
   }
 }
 
-
-
 // controller si c est bien un email
 email.addEventListener('change', function () {
   validEmail(this);
 });
-
 
 const validEmail = (email) => {
   // creation de regex expression reguliere email
@@ -362,7 +330,6 @@ const validEmail = (email) => {
   }
 }
 
-
 // methode post pour envoyer le formulaire de contact au serveur
 commander.addEventListener('click', function (e) {
   var products = [];
@@ -370,8 +337,6 @@ commander.addEventListener('click', function (e) {
   panier.forEach(canap => {
     products.push(canap.id);
   });
-  // console.log(products);
-
   e.preventDefault();
 
   // passe le fetch dans le if de controle des champs formulaire a true
@@ -388,7 +353,6 @@ commander.addEventListener('click', function (e) {
       contact, products
     }
 
-    console.log(contact);
     // fetch api et methode post pour envoyer le formulaire de contact au serveur et recuperer numero de commande
     fetch('http://localhost:3000/api/products/order/', {
       method: 'POST',
@@ -406,19 +370,11 @@ commander.addEventListener('click', function (e) {
       console.log(data.orderId);
       // // renvoyer sur page confirmation
       window.location.href = "confirmation.html?orderId=" + data.orderId;
-
-
-
-      // return alert(`Votre commande a bien été prise en compte ! numero : ${data.orderId}`);
-      // var pageConfirmation = document.getElementsByClassName('informations');
-      // console.log(pageConfirmation);
-      // var message = document.getElementById('order');
     });
   }
   else {
     return alert('Veuillez corriger ou remplir les champs du formulaire');
   }
-
 });
 
 
