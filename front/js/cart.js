@@ -137,7 +137,6 @@ panier.forEach(function (product, index) {
 
         // recup le total ds le dom
         var totalPrice = document.getElementById('totalPrice');
-        // console.log(totalPrice);
 
         // afficher le total ds le dom
         totalPrice.textContent = calculPrice(product.price);
@@ -238,6 +237,7 @@ const validFirstName = (firstName) => {
     firstName.style.border = "2px solid green";
     firstNameErrorMsg.style.color = "darkgreen";
     firstNameErrorMsg.textContent = "Le prenom est valide !";
+    // return true pour la validation ligne 342
     return true;
   }
 }
