@@ -8,7 +8,7 @@ if (searchParams.has('id')) {
   // aller rechercher la valeur de l attribut id ds l url avec la methode get
   var productId = searchParams.get('id');
 
-  // si il existe pas renvoie vers la page d accueil
+  // si il n'existe pas renvoie vers la page d accueil
 } else {
   window.location.href = './index.html';
 }
@@ -72,6 +72,7 @@ const addBasket = () => {
     var color = select.options[select.selectedIndex].value;
     var numberQuantity = document.getElementById('quantity').value;
 
+    // verification de l input quantity et color
     if (color == '' && numberQuantity == 0) {
       return alert("veuillez saisir une quantité et une couleur")
     } else if (color == '') {
@@ -103,6 +104,7 @@ const addBasket = () => {
           quantity: numberQuantity,
         });
       }
+      // convertit une valeur JavaScript en chaîne JSON
       localStorage.setItem('product', JSON.stringify(productArray));
     }
   });

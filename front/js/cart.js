@@ -16,8 +16,6 @@ panier.forEach(function (product, index) {
   var productId = product.id;
   var productColor = product.color;
   var productQuantity = product.quantity;
-  // var productPrice = product.price;
-
 
 
   fetch(url + productId)
@@ -159,6 +157,7 @@ function changeQuantityLocalStorage(quantity, _id, color) {
   location.reload();
 }
 
+// supprimer la quantité du localstorage
 function deleteItemStorage(id, color) {
   const panier = JSON.parse(localStorage.getItem('product'));
   panier.forEach(canap => {
@@ -219,11 +218,11 @@ var commander = document.getElementById('order');
 
 
 
-// controler prenom 
+// ecoute de l input 
 firstName.addEventListener('change', function () {
   validFirstName(this);
 });
-
+// controler prenom
 const validFirstName = (firstName) => {
   // creation de regex expression reguliere prenom
   var firstnameRegExp = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ -]+$/;
@@ -242,11 +241,11 @@ const validFirstName = (firstName) => {
   }
 }
 
-// controler le nom
+// ecoute de l input
 lastName.addEventListener('change', function () {
   validLastName(this);
 });
-
+// controler le nom
 const validLastName = (lastName) => {
   // creation de regex expression reguliere nom
   var lastnameRegExp = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ -]+$/;
@@ -264,11 +263,11 @@ const validLastName = (lastName) => {
   }
 }
 
-// controller une adresse 
+// ecoute de l input
 adress.addEventListener('change', function () {
   validAdress(this);
 });
-
+// controller une adresse 
 const validAdress = (adress) => {
   // creation de regex expression reguliere adresse
   var adressRegExp = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ -]+$/;
@@ -286,11 +285,11 @@ const validAdress = (adress) => {
   }
 }
 
-// controller si c est bien une ville
+// ecoute de l input
 city.addEventListener('change', function () {
   validCity(this);
 });
-
+// controller si c est bien une ville
 const validCity = (city) => {
   // creation de regex expression reguliere ville
   var cityRegExp = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ -]+$/;
@@ -308,11 +307,11 @@ const validCity = (city) => {
   }
 }
 
-// controller si c est bien un email
+// ecoute de l input
 email.addEventListener('change', function () {
   validEmail(this);
 });
-
+// controller si c est bien un email
 const validEmail = (email) => {
   // creation de regex expression reguliere email
   var emailRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z-]+)*$/;
