@@ -79,9 +79,17 @@ const addBasket = () => {
       return alert("veuillez saisir une couleur")
     } else if (numberQuantity == 0) {
       return alert("veuillez saisir une quantité")
-    } else {
+    }
+    // verification de l input quantity inferieur à 100 
+    else if (numberQuantity > 100) {
+      return alert("veuillez saisir une quantité inférieure à 100")
+    }
+    else {
+      // redirection vers la page panier si formulaire valide
+      document.location.href = "./cart.html";
       return selectValue(color, numberQuantity);
     }
+
 
     // verifier si il y a deja un produit dans le local storage
     function selectValue() {
