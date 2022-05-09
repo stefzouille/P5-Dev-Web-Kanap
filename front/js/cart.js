@@ -93,13 +93,22 @@ panier.forEach(function (product, index) {
         settingQuantity.textContent = "Qté : ";
 
         var settingQuantityInput = document.createElement('input');
+
         settingQuantityInput.setAttribute('type', 'number');
         settingQuantityInput.setAttribute('value', productQuantity);
         settingQuantityInput.setAttribute('class', 'itemQuantity');
         settingQuantityInput.setAttribute('min', '1');
         settingQuantityInput.setAttribute('max', '100');
 
-
+        settingQuantityInput.addEventListener('change', function () {
+          var newQuantity = this.value;
+          if (newQuantity > 100) {
+            alert("Veuillez entrer une quantité inférieure à 100");
+            return console.log(false);
+          } else {
+            changeQuantityLocalStorage(newQuantity, product._id, productColor);
+          }
+        })
         settingQuantity.appendChild(settingQuantityInput);
         settings.appendChild(settingQuantity);
         article.appendChild(settings);
@@ -114,10 +123,6 @@ panier.forEach(function (product, index) {
 
         article.appendChild(settings);
 
-        settingQuantityInput.addEventListener('change', function () {
-          var newQuantity = this.value;
-          changeQuantityLocalStorage(newQuantity, product._id, productColor);
-        })
 
         deleteItemP.addEventListener('click', function () {
           deleteItemStorage(product._id, productColor);
@@ -151,11 +156,17 @@ function changeQuantityLocalStorage(quantity, _id, color) {
 
     if (canap.id == _id && canap.color == color) {
       canap.quantity = parseInt(quantity);
+      return true;
+    } else {
+      controlQuantity(canap.quantity);
     }
+
   });
   localStorage.setItem('product', JSON.stringify(panier));
   location.reload();
 }
+
+
 
 // supprimer la quantité du localstorage
 function deleteItemStorage(id, color) {
@@ -193,9 +204,10 @@ function calculPrice(price) {
     // additionner les prix
     priceTotal += parseInt(canap.quantity) * parseInt(price);
   });
-  return priceTotal;
-}
 
+  return priceTotal;
+
+}
 
 // ............................................................ formulaire de contact
 
@@ -214,8 +226,6 @@ var email = document.getElementById('email');
 
 // commander
 var commander = document.getElementById('order');
-
-
 
 
 // ecoute de l input 
@@ -332,47 +342,58 @@ const validEmail = (email) => {
 // methode post pour envoyer le formulaire de contact au serveur
 commander.addEventListener('click', function (e) {
   var products = [];
+  var okToSend = true;
   var panier = JSON.parse(localStorage.getItem('product'));
-  panier.forEach(canap => {
-    products.push(canap.id);
-  });
-  e.preventDefault();
+  var inputs = document.querySelectorAll('.itemQuantity');
 
-  // passe le fetch dans le if de controle des champs formulaire a true
-  if (validFirstName(firstName) && validLastName(lastName) && validAdress(adress) && validCity(city) && validEmail(email)) {
-    console.log('formulaire valide');
-    var contact = {
-      firstName: firstName.value,
-      lastName: lastName.value,
-      address: adress.value,
-      city: city.value,
-      email: email.value
+  // verification de la validite des inputs inferieurs a 100
+  for (const elem of inputs) {
+    if (elem.value > 100) {
+      okToSend = false;
     }
-    var data = {
-      contact, products
-    }
-
-    // fetch api et methode post pour envoyer le formulaire de contact au serveur et recuperer numero de commande
-    fetch('http://localhost:3000/api/products/order/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    }).then(response => response.json()).then(data => {
-      console.log(data);
-      // afficher le numero de commande
-      var orderNumber = document.getElementById('order');
-      orderNumber.appendChild(document.createTextNode(data.orderNumber));
-      // afficher le message de confirmation
-
-      console.log(data.orderId);
-      // // renvoyer sur page confirmation
-      window.location.href = "confirmation.html?orderId=" + data.orderId;
+    panier.forEach(canap => {
+      products.push(canap.id);
     });
-  }
-  else {
-    return alert('Veuillez corriger ou remplir les champs du formulaire');
+    e.preventDefault();
+
+
+    // passe le fetch dans le if de controle des champs formulaire a true
+    if (validFirstName(firstName) && validLastName(lastName) && validAdress(adress) && validCity(city) && okToSend) {
+      // alert(okToSend);
+      var contact = {
+        firstName: firstName.value,
+        lastName: lastName.value,
+        address: adress.value,
+        city: city.value,
+        email: email.value,
+
+      }
+      var data = {
+        contact, products
+      }
+
+      // fetch api et methode post pour envoyer le formulaire de contact au serveur et recuperer numero de commande
+      fetch('http://localhost:3000/api/products/order/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      }).then(response => response.json()).then(data => {
+
+        // afficher le numero de commande
+        var orderNumber = document.getElementById('order');
+        orderNumber.appendChild(document.createTextNode(data.orderNumber));
+        // afficher le message de confirmation
+
+
+        // // renvoyer sur page confirmation
+        window.location.href = "confirmation.html?orderId=" + data.orderId;
+      });
+    }
+    else {
+      return alert('Veuillez corriger ou remplir les champs du formulaire et/ou verifier que votre quantité est inférieure à 100');
+    }
   }
 });
 
