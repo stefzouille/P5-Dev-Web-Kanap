@@ -359,7 +359,7 @@ commander.addEventListener('click', function (e) {
 
     // passe le fetch dans le if de controle des champs formulaire a true
     if (validFirstName(firstName) && validLastName(lastName) && validAdress(adress) && validCity(city) && okToSend) {
-      // alert(okToSend);
+
       var contact = {
         firstName: firstName.value,
         lastName: lastName.value,
